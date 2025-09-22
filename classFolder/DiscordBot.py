@@ -16,6 +16,7 @@ class DiscordBot(discord.Client):
         # init the bot.
         intents = discord.Intents.default()
         intents.message_content = True # allow to see message content.
+        #intents.members = True # allow to access members. -> need to switch permission in discord portail dev of bot.
 
         super().__init__(intents=intents)
 
