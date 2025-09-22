@@ -13,7 +13,7 @@ class DiscordBot(discord.Client):
         self.pathToken = f"{self.pathFolder}/json/tokenDiscord.json"
 
         # init the bot.
-        super().__init__()
+        super().__init__(intents=discord.Intents.default())
 
 
 
