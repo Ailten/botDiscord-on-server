@@ -1,4 +1,6 @@
 import discord #pip install -U discord.py
+from classFolder.Json import Json
+import pathlib
 
 # Doc : https://realpython.com/how-to-make-a-discord-bot-python/
 
@@ -32,7 +34,7 @@ class DiscordBot(discord.Client):
 
     # function return object json token.
     def getTokenObj(self):
-        return json.read(self.pathToken)
+        return Json.read(self.pathToken)
 
     # overide run methode.
     def run(self):
