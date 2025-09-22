@@ -3,6 +3,7 @@ from classFolder.Json import Json
 import pathlib
 
 # Doc : https://realpython.com/how-to-make-a-discord-bot-python/
+# Doc (event message) : https://docs.pycord.dev/en/master/api/events.html#discord.on_message
 
 class DiscordBot(discord.Client):
 
@@ -13,7 +14,10 @@ class DiscordBot(discord.Client):
         self.pathToken = f"{self.pathFolder}/json/tokenDiscord.json"
 
         # init the bot.
-        super().__init__(intents=discord.Intents.default())
+        intents = discord.Intents.default()
+        intents.message_content = True # allow to see message content.
+
+        super().__init__(intents=intents)
 
 
 
@@ -29,7 +33,7 @@ class DiscordBot(discord.Client):
     async def on_message(self, message):
         if message.author == self.user: # skill self message.
             return
-        if message.content == "!hello": # cmd !hello.
+        if message.content.lower() == "!hello": # cmd !hello.
             await message.channel.send("Hello !")
 
     # function return object json token.
