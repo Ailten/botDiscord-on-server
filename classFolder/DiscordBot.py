@@ -87,3 +87,9 @@ class DiscordBot(discord.Client):
     def getTokenObj(self):
         return Json.read(self.pathToken)
 
+    # functon to get member from id member (need also guild name).
+    async def getMemberFromId(self, idMember, guildName="Ailten"):
+        guild = discord.utils.find(lambda g : g.id == self.idGuild[guildName], self.guilds)
+        member = await guild.fetch_member(idMember)
+        return member
+

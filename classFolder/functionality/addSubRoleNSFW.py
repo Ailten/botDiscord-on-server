@@ -7,7 +7,7 @@ async def addSubRoleNSFW(bot, payload, isAdd: bool):
         return
 
     # verify if is the right channem.
-    if payload.channel_id != bot.idChannel["role"]:
+    if payload.channel_id != bot.idChannel["roles"]:
         return
 
     # verify if is the discord server "Ailten".
@@ -18,18 +18,21 @@ async def addSubRoleNSFW(bot, payload, isAdd: bool):
     if payload.emoji.name != "✅":
         return
 
+    # get member.
+    member = payload.member or await bot.getMemberFromId(payload.user_id)
+
     # verify if the user has already the role.
-    isMemberHasTheRole = "nsfw" in map(lambda r: r.name, payload.member.roles)
+    isMemberHasTheRole = "nsfw" in map(lambda r: r.name, member.roles)
 
     # add or remove role.
     roleNSFW = discord.Object(id=bot.idRole["nsfw"], type=type(discord.Role))
     if isAdd and not isMemberHasTheRole: # do add.
 
-        await payload.member.add_roles(roleNSFW, reason="signe for the role.")
+        await member.add_roles(roleNSFW, reason="signe for the role.")
 
-    else if not isAdd and isMemberHasTheRole: # do remove.
+    elif not isAdd and isMemberHasTheRole: # do remove.
 
-        await payload.member.remove_roles(roleNSFW, reason="un-signe for the role.")
+        await member.remove_roles(roleNSFW, reason="un-signe for the role.")
 
     
     
