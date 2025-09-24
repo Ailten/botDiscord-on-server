@@ -3,15 +3,15 @@ import discord
 async def ruleSigne(bot, payload):
 
     # verify if is the message "reglement".
-    if payload.message_id != 1420025908000985162:
+    if payload.message_id != bot.idMessages["rules"]:
         return
 
     # verify if is the channel "reglement".
-    if payload.channel_id != 1420019325368012961:
+    if payload.channel_id != bot.idChannel["règlement"]:
         return
 
     # verify if is the discord server "Ailten".
-    if payload.guild_id != 1099296948974006302:
+    if payload.guild_id != bot.idGuild["Ailten"]:
         return
 
     # verify if is the right emoji.
@@ -24,5 +24,5 @@ async def ruleSigne(bot, payload):
         return
 
     # add role "rule-reader" to the member.
-    roleRuleReader = discord.Object(id=1223358254852083749, type=type(discord.Role))
+    roleRuleReader = discord.Object(id=bot.idRole["rule-reader"], type=type(discord.Role))
     await payload.member.add_roles(roleRuleReader, reason="signe the rules.")

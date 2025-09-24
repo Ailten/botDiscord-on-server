@@ -4,6 +4,7 @@ import pathlib
 
 # importe functionality.
 from classFolder.functionality.ruleSigne import ruleSigne
+from classFolder.functionality.addSubRoleNSFW import addSubRoleNSFW
 
 # Doc : https://realpython.com/how-to-make-a-discord-bot-python/
 # Doc (event message) : https://docs.pycord.dev/en/master/api/events.html#discord.on_message
@@ -16,6 +17,23 @@ class DiscordBot(discord.Client):
         # set path folder.
         self.pathFolder = pathlib.Path(__file__).parent.parent.resolve()
         self.pathToken = f"{self.pathFolder}/json/tokenDiscord.json"
+
+        # set dictionary ID.
+        self.idMessages = {
+            "rules": 1420025908000985162,
+            "role-nsfw": 1420428198331809984
+        }
+        self.idChannel = {
+            "règlement": 1420019325368012961,
+            "roles": 1420425489444507761
+        }
+        self.idGuild = {
+            "Ailten": 1099296948974006302
+        }
+        self.idRole = {
+            "rule-reader": 1223358254852083749,
+            "nsfw": 1420427253946388572
+        }
 
         # build intents (permission of bot).
         #intents = discord.Intents.all()
@@ -55,6 +73,11 @@ class DiscordBot(discord.Client):
     async def on_raw_reaction_add(self, payload): # https://docs.pycord.dev/en/master/api/events.html#discord.on_raw_reaction_add
         
         await ruleSigne(self, payload)
+        await addSubRoleNSFW(self, payload, isAdd=True)
+
+    async def on_raw_reaction_remove(self, payload):
+
+        await addSubRoleNSFW(self, payload, isAdd=False)
 
 
 
