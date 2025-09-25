@@ -3,10 +3,8 @@ from classFolder.Json import Json
 import pathlib
 
 # importe functionality.
-from classFolder.functionality.ruleSigne import ruleSigne
-from classFolder.functionality.addSubRoleNSFW import addSubRoleNSFW
-from classFolder.functionality.addSubRoleArt import addSubRoleArt
-from classFolder.functionality.addSubRoleCode import addSubRoleCode
+from classFolder.functionality.AddRoleFromReaction import AddRoleFromReaction
+from classFolder.functionality.AddSubRoleFromReaction import AddSubRoleFromReaction
 
 # Doc : https://realpython.com/how-to-make-a-discord-bot-python/
 # Doc (event message) : https://docs.pycord.dev/en/master/api/events.html#discord.on_message
@@ -40,6 +38,14 @@ class DiscordBot(discord.Client):
             "art": 1420741388445810849,
             "code": 1420741549389647952
         }
+
+        # get functionality class.
+        self.functionality = [
+            AddRoleFromReaction(bot=self, messageKey="rules", roleKey="rule-reader", channelKey="règlement"),
+            AddSubRoleFromReaction(bot=self, messageKey="role-nsfw", roleKey="nsfw"),
+            AddSubRoleFromReaction(bot=self, messageKey="role-art", roleKey="art"),
+            AddSubRoleFromReaction(bot=self, messageKey="role-code", roleKey="code")
+        ]
 
         # build intents (permission of bot).
         #intents = discord.Intents.all()
@@ -77,18 +83,20 @@ class DiscordBot(discord.Client):
 
     # event reaction, call when a user add a reaction in a message.
     async def on_raw_reaction_add(self, payload): # https://docs.pycord.dev/en/master/api/events.html#discord.on_raw_reaction_add
-        
-        await ruleSigne(self, payload)
-        await addSubRoleNSFW(self, payload, isAdd=True)
-        await addSubRoleArt(self, payload, isAdd=True)
-        await addSubRoleCode(self, payload, isAdd=True)
+        for f in self.functionality:
+            if not "on_raw_reaction_add" in f.isUseOnEvent:
+                continue
+            if not f.isFullCheck(self, payload):
+                continue
+            await f.addReaction(self, payload)
 
     async def on_raw_reaction_remove(self, payload):
-
-        await addSubRoleNSFW(self, payload, isAdd=False)
-        await addSubRoleArt(self, payload, isAdd=False)
-        await addSubRoleCode(self, payload, isAdd=False)
-
+        for f in self.functionality:
+            if not "on_raw_reaction_remove" in f.isUseOnEvent:
+                continue
+            if not f.isFullCheck(self, payload):
+                continue
+            await f.removeReaction(self, payload)
 
 
     # ---------> additional self function.
