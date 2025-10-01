@@ -23,7 +23,8 @@ class DiscordBot(discord.Client):
             "rules": 1420025908000985162,
             "role-nsfw": 1420428198331809984,
             "role-art": 1420742218762948608,
-            "role-code": 1420742661673058356
+            "role-code": 1420742661673058356,
+            "role-ping-stream": 1422960746966417448
         }
         self.idChannel = {
             "règlement": 1420019325368012961,
@@ -36,7 +37,8 @@ class DiscordBot(discord.Client):
             "rule-reader": 1223358254852083749,
             "nsfw": 1420427253946388572,
             "art": 1420741388445810849,
-            "code": 1420741549389647952
+            "code": 1420741549389647952,
+            "ping-stream": 1422958935668818112
         }
 
         # get functionality class.
@@ -44,7 +46,8 @@ class DiscordBot(discord.Client):
             AddRoleFromReaction(bot=self, messageKey="rules", roleKey="rule-reader", channelKey="règlement"),
             AddSubRoleFromReaction(bot=self, messageKey="role-nsfw", roleKey="nsfw"),
             AddSubRoleFromReaction(bot=self, messageKey="role-art", roleKey="art"),
-            AddSubRoleFromReaction(bot=self, messageKey="role-code", roleKey="code")
+            AddSubRoleFromReaction(bot=self, messageKey="role-code", roleKey="code"),
+            AddSubRoleFromReaction(bot=self, messageKey="role-ping-stream", roleKey="ping-stream")
         ]
 
         # build intents (permission of bot).
