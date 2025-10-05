@@ -1,10 +1,11 @@
 from flask import Flask, request
+import asyncio
 
 class Http():
 
     def __init__(self, bot, port :str):
         self.app = Flask(__name__)
-        self.app.run(host="127.0.0.1", port=port)
+        asyncio.run(self.app.run(host="127.0.0.1", port=port))
 
         self.bot = bot
         
