@@ -69,7 +69,7 @@ class DiscordBot(discord.Client):
         DiscordBot.currentBot = self
 
         # set Http watcher.
-        Http.startFlask(self)
+        Http(self, "5000") # for watch event from botTwitch.
 
 
     # overide run methode.
