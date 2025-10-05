@@ -4,10 +4,6 @@ from classFolder.DiscordBot import DiscordBot
 class Http():
     app: None #flask.
 
-    exchangePort = {
-        "botTwitch": "5000" # "botTwitch - botDiscord" == 5000
-    }
-
     @staticmethod
     def startFlask():
         Http.app = Flask(__name__)
@@ -15,13 +11,13 @@ class Http():
 
 
     @staticmethod
-    @app.route('/event', methods=['POST'])
+    @app.route('/event/sayInChannelDiscord', methods=['POST'])
     async def handleEvent():
         data = request.json # get package from event.
         bot = DiscordBot.currentBot # get bot discord.
 
-        if data["event"] == "sayInChannel":
-            bot.sayInChannel(data["channelName"], data["message"])
+        # do.
+        bot.sayInChannel(data["channelName"], data["message"])
 
         return '', 200
     
