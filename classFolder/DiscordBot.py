@@ -1,6 +1,7 @@
 import discord #pip install -U discord.py
 from classFolder.Json import Json
 import pathlib
+from classFolder.Http import Http
 
 # importe functionality.
 from classFolder.functionality.AddRoleFromReaction import AddRoleFromReaction
@@ -66,6 +67,10 @@ class DiscordBot(discord.Client):
 
         # stock instance bot in static.
         DiscordBot.currentBot = self
+
+        # set Http watcher.
+        Http.startFlask()
+
 
     # overide run methode.
     def run(self):
