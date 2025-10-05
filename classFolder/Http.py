@@ -1,14 +1,16 @@
 from flask import Flask, request
-from classFolder.DiscordBot import DiscordBot
 
 class Http():
-    app: None #flask.
+    app: None # flask.
+    bot: None # botDiscord.
 
     @staticmethod
-    def startFlask():
+    def startFlask(bot):
         Http.app = Flask(__name__)
         Http.app.run(host="127.0.0.1", port="5000")
 
+        Http.bot = bot
+        
 
     @staticmethod
     @app.route('/event/sayInChannelDiscord', methods=['POST'])

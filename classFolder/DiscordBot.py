@@ -69,7 +69,7 @@ class DiscordBot(discord.Client):
         DiscordBot.currentBot = self
 
         # set Http watcher.
-        Http.startFlask()
+        Http.startFlask(self)
 
 
     # overide run methode.
