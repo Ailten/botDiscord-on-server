@@ -10,6 +10,7 @@ from classFolder.functionality.AddSubRoleFromReaction import AddSubRoleFromReact
 # Doc (event message) : https://docs.pycord.dev/en/master/api/events.html#discord.on_message
 
 class DiscordBot(discord.Client):
+    currentBot: None
 
     # constructor.
     def __init__(self):
@@ -28,7 +29,8 @@ class DiscordBot(discord.Client):
         }
         self.idChannel = {
             "règlement": 1420019325368012961,
-            "roles": 1420425489444507761
+            "roles": 1420425489444507761,
+            "bot-log": 1223308295838761110
         }
         self.idGuild = {
             "Ailten": 1099296948974006302
@@ -61,6 +63,9 @@ class DiscordBot(discord.Client):
 
         # init the bot (parent).
         super().__init__(intents=intents)
+
+        # stock instance bot in static.
+        DiscordBot.currentBot = self
 
     # overide run methode.
     def run(self):
@@ -113,4 +118,10 @@ class DiscordBot(discord.Client):
         guild = discord.utils.find(lambda g : g.id == self.idGuild[guildName], self.guilds)
         member = await guild.fetch_member(idMember)
         return member
+
+    # function to send a message in a channel.
+    async def sayInChannel(self, channelName: str, message: str):
+        getChannel = discord.Object(id=self.idChannel[channelName], type=type(discord.Channel))
+        getChannel.send(message)
+
 
