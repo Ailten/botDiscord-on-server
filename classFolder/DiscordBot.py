@@ -11,7 +11,6 @@ from classFolder.functionality.AddSubRoleFromReaction import AddSubRoleFromReact
 # Doc (event message) : https://docs.pycord.dev/en/master/api/events.html#discord.on_message
 
 class DiscordBot(discord.Client):
-    currentBot: None
 
     # constructor.
     def __init__(self):
@@ -65,11 +64,8 @@ class DiscordBot(discord.Client):
         # init the bot (parent).
         super().__init__(intents=intents)
 
-        # stock instance bot in static.
-        DiscordBot.currentBot = self
-
         # set Http watcher.
-        runFlask(5000) # for watch event from botTwitch.
+        runFlask(self, 5000) # for watch event from botTwitch.
 
 
     # overide run methode.
