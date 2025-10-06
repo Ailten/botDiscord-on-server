@@ -2,6 +2,7 @@ import discord #pip install -U discord.py
 from classFolder.Json import Json
 import pathlib
 from classFolder.Http import *
+import asyncio
 
 # importe functionality.
 from classFolder.functionality.AddRoleFromReaction import AddRoleFromReaction
@@ -65,7 +66,7 @@ class DiscordBot(discord.Client):
         super().__init__(intents=intents)
 
         # set Http watcher.
-        runFlask(self, 5000) # for watch event from botTwitch.
+        asyncio.run(runFlask(self, 5000)) # for watch event from botTwitch.
 
 
     # overide run methode.

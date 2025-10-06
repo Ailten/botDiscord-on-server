@@ -20,7 +20,6 @@
 #        return '', 200
 
 from flask import Flask, request # Doc : https://www.geeksforgeeks.org/python/python-introduction-to-web-development-using-flask/
-import asyncio
 app = Flask(__name__)
 bot = None
 
@@ -37,7 +36,7 @@ def handleEvent():
 
 # ---------->
 
-def runFlask(botRef, port :int):
+async def runFlask(botRef, port :int):
     bot = botRef
-    asyncio.run(app.run(host="127.0.0.1", port=port))
+    app.run(host="127.0.0.1", port=port)
     
