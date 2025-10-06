@@ -20,13 +20,14 @@
 #        return '', 200
 
 from flask import Flask, request # Doc : https://www.geeksforgeeks.org/python/python-introduction-to-web-development-using-flask/
+import asyncio
 app = Flask(__name__)
 bot = None
 
 # ---------->
 
 @app.route('/event/sayInChannelDiscord', methods=['POST'])
-async def handleEvent():
+def handleEvent():
     data = request.json # get package from event.
 
     # do.
@@ -38,5 +39,5 @@ async def handleEvent():
 
 def runFlask(botRef, port :int):
     bot = botRef
-    app.run(host="127.0.0.1", port=port)
+    asyncio.run(app.run(host="127.0.0.1", port=port))
     
