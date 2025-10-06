@@ -1,7 +1,7 @@
 import discord #pip install -U discord.py
 from classFolder.Json import Json
 import pathlib
-from classFolder.Http import Http
+from classFolder.Http import *
 
 # importe functionality.
 from classFolder.functionality.AddRoleFromReaction import AddRoleFromReaction
@@ -69,7 +69,7 @@ class DiscordBot(discord.Client):
         DiscordBot.currentBot = self
 
         # set Http watcher.
-        Http(self, "5000") # for watch event from botTwitch.
+        runFlask(5000) # for watch event from botTwitch.
 
 
     # overide run methode.
